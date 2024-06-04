@@ -51,32 +51,36 @@ function checkState() {
 	for (var i = 0; i < 3; i++)
 		if ((state[i] == state[i + 3]) && (state[i] == state[i + 6]) && (state[i] > 0)) {
 			isWon = 1;
-			if (state[i] == 1)
+			if (state[i] == 1) {
 				document.getElementById("game_stats").textContent = "X has won!";
-			else
+			} else {
 				document.getElementById("game_stats").textContent = "O has won!";
+			}
 		}
 	for (var i = 0; i < 7; i += 3)
 		if ((state[i] == state[i + 1]) && (state[i] == state[i + 2]) && (state[i] > 0)) {
 			isWon = 1;
-			if (window.state[i] == 1)
+			if (window.state[i] == 1) {
 				document.getElementById("game_stats").textContent = "X has won!";
-			else
+			} else {
 				document.getElementById("game_stats").textContent = "O has won!";
+			}
 		}
 	if ((state[0] == state[4]) && (state[0] == state[8]) && (state[0] > 0)) {
 		isWon = 1;
-		if (window.state[0] == 1)
+		if (window.state[0] == 1) {
 			document.getElementById("game_stats").textContent = "X has won!";
-		else
+		} else {
 			document.getElementById("game_stats").textContent = "O has won!";
+		}
 	}
 	if ((state[2] == state[4]) && (state[2] == state[6]) && (state[2] > 0)) {
 		isWon = 1;
-		if (window.state[2] == 1)
+		if (window.state[2] == 1) {
 			document.getElementById("game_stats").textContent = "X has won!";
-		else
+		} else {
 			document.getElementById("game_stats").textContent = "O has won!";
+		}
 	}
 	if ((isWon === 0) && (moves === 9)) {
 		document.getElementById("game_stats").textContent = "Draw!";
