@@ -6,13 +6,36 @@ function start() {
 	currentPlayer = 0;
 	state = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 	moves = 0;
+	let navButtons = document.getElementById("Buttons");
+	let currenttr;
+	navButtons.innerHTML = "";
+	for (var i = 0; i < 9; ++i) {
+		if (i % 3 === 0) {
+			currenttr = document.createElement("tr");
+		}
+		let currenttd = document.createElement("td");
+		let button = document.createElement("button");
+		button.setAttribute("buttonid", i);
+		button.setAttribute("style", "height:40px;width:40px;font-family:Arial;font-size:18px;");
+		button.innerHTML = " ";
+		button.addEventListener("click", function (event) {
+			let btn = event.target;
+			let page = btn.getAttribute("buttonid");
+			wrapperButton(page);
+		});
+		currenttd.appendChild(button);
+		currenttr.appendChild(currenttd);
+		if (i % 3 === 2) {
+			navButtons.appendChild(currenttr);
+		}
+	}
 }
 
 function clickNew() {
 	currentPlayer = 0;
 	state = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 	for (var i = 0; i < 9; ++i) {
-		document.getElementById("button" + String.fromCharCode(65 + i)).textContent = " ";
+		document.getElementById("Buttons").children[Math.floor(i / 3)].children[i % 3].children[0].textContent = " ";
 	}
 	moves = 0;
 	checkState();
@@ -59,53 +82,16 @@ function checkState() {
 		document.getElementById("game_stats").textContent = "Draw!";
 	}
 }
-
-function clickA() {
-	wrapperButton(0);
-}
-
-function clickB() {
-	wrapperButton(1);
-}
-
-function clickC() {
-	wrapperButton(2);
-}
-
-function clickD() {
-	wrapperButton(3);
-}
-
-function clickE() {
-	wrapperButton(4);
-}
-
-function clickF() {
-	wrapperButton(5);
-}
-
-function clickG() {
-	wrapperButton(6);
-}
-
-function clickH() {
-	wrapperButton(7);
-}
-
-function clickI() {
-	wrapperButton(8);
-}
-
 function wrapperButton(number) {
 	if (state[number] == 0) {
 		if (currentPlayer == 0) {
 			currentPlayer = 1;
 			state[number] = 1;
-			document.getElementById("button" + String.fromCharCode(65 + number)).textContent = "X";
+			document.getElementById("Buttons").children[Math.floor(number / 3)].children[number % 3].children[0].textContent = "X";
 		} else {
 			currentPlayer = 0;
 			state[number] = 2;
-			document.getElementById("button" + String.fromCharCode(65 + number)).textContent = "O";
+			document.getElementById("Buttons").children[Math.floor(number / 3)].children[number % 3].children[0].textContent = "O";
 		}
 		++moves;
 		checkState();
