@@ -67,11 +67,13 @@ function checkState() {
 		document.getElementById("game_stats").textContent = "Draw!";
 	}
 }
+
 function wrapperButton(number) {
 	if (state[number] == 0) {
 		state[number] = currentPlayer + 1;
 		currentPlayer = (currentPlayer + 1) % 2;
-		document.getElementById("Buttons").children[Math.floor(number / 3)].children[number % 3].children[0].textContent = players[currentPlayer];
+		let td = document.getElementById("Buttons").children[Math.floor(number / 3)].children[number % 3];
+		td.children[0].textContent = players[currentPlayer];
 		++moves;
 		checkState();
 	}
