@@ -1,7 +1,7 @@
-var currentPlayer;
-var state = [];
-var moves;
-var players = ["O", "X", "O"];
+let currentPlayer;
+let state = [];
+let moves;
+let players = ["O", "X", "O"];
 
 function start() {
 	currentPlayer = 0;
@@ -10,32 +10,30 @@ function start() {
 	let navButtons = document.getElementById("Buttons");
 	let currenttr;
 	navButtons.innerHTML = "";
-	for (var i = 0; i < 9; ++i) {
-		if (i % 3 === 0) {
-			currenttr = document.createElement("tr");
+	for (let i = 0; i < 3; ++i) {
+		currenttr = document.createElement("tr");
+		for (let j = 0; j < 3; j++) {
+			let currenttd = document.createElement("td");
+			let button = document.createElement("button");
+			button.setAttribute("buttonid", i * 3 + j);
+			button.setAttribute("style", "height:40px;width:40px;font-family:Arial;font-size:18px;");
+			button.innerHTML = " ";
+			button.addEventListener("click", function (event) {
+				let btn = event.target;
+				let buttonid = btn.getAttribute("buttonid");
+				buttonClicked(buttonid);
+			});
+			currenttd.appendChild(button);
+			currenttr.appendChild(currenttd);
 		}
-		let currenttd = document.createElement("td");
-		let button = document.createElement("button");
-		button.setAttribute("buttonid", i);
-		button.setAttribute("style", "height:40px;width:40px;font-family:Arial;font-size:18px;");
-		button.innerHTML = " ";
-		button.addEventListener("click", function (event) {
-			let btn = event.target;
-			let page = btn.getAttribute("buttonid");
-			wrapperButton(page);
-		});
-		currenttd.appendChild(button);
-		currenttr.appendChild(currenttd);
-		if (i % 3 === 2) {
-			navButtons.appendChild(currenttr);
-		}
+		navButtons.appendChild(currenttr);
 	}
 }
 
 function clickNew() {
 	currentPlayer = 0;
 	state = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-	for (var i = 0; i < 9; ++i) {
+	for (let i = 0; i < 9; ++i) {
 		document.getElementById("Buttons").children[Math.floor(i / 3)].children[i % 3].children[0].textContent = " ";
 	}
 	moves = 0;
@@ -43,14 +41,14 @@ function clickNew() {
 }
 
 function checkState() {
-	var isWon = 0;
+	let isWon = 0;
 	document.getElementById("game_stats").textContent = players[currentPlayer + 1] + " to click";
-	for (var i = 0; i < 3; i++)
+	for (let i = 0; i < 3; i++)
 		if ((state[i] == state[i + 3]) && (state[i] == state[i + 6]) && (state[i] > 0)) {
 			isWon = 1;
 			document.getElementById("game_stats").textContent = players[state[i]] + " has won!";
 		}
-	for (var i = 0; i < 7; i += 3)
+	for (let i = 0; i < 7; i += 3)
 		if ((state[i] == state[i + 1]) && (state[i] == state[i + 2]) && (state[i] > 0)) {
 			isWon = 1;
 			document.getElementById("game_stats").textContent = players[state[i]] + " has won!";
@@ -68,7 +66,7 @@ function checkState() {
 	}
 }
 
-function wrapperButton(number) {
+function buttonClicked(number) {
 	if (state[number] == 0) {
 		state[number] = currentPlayer + 1;
 		currentPlayer = (currentPlayer + 1) % 2;
