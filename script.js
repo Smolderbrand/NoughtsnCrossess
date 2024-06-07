@@ -12,7 +12,7 @@ function start() {
 	navButtons.innerHTML = "";
 	for (let i = 0; i < 3; ++i) {
 		currenttr = document.createElement("tr");
-		for (let j = 0; j < 3; j++) {
+		for (let j = 0; j < 3; ++j) {
 			let currenttd = document.createElement("td");
 			let button = document.createElement("button");
 			button.setAttribute("buttonid", i * 3 + j);
@@ -33,8 +33,10 @@ function start() {
 function clickNew() {
 	currentPlayer = 0;
 	state = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-	for (let i = 0; i < 9; ++i) {
-		document.getElementById("Buttons").children[Math.floor(i / 3)].children[i % 3].children[0].textContent = " ";
+	for (let i = 0; i < 3; ++i) {
+		for (let j = 0; j < 3; ++j) {
+			document.getElementById("Buttons").children[i].children[j].children[0].textContent = " ";
+		}
 	}
 	moves = 0;
 	checkState();
@@ -43,16 +45,18 @@ function clickNew() {
 function checkState() {
 	let isWon = 0;
 	document.getElementById("game_stats").textContent = players[currentPlayer + 1] + " to click";
-	for (let i = 0; i < 3; i++)
+	for (let i = 0; i < 3; ++i) {
 		if ((state[i] == state[i + 3]) && (state[i] == state[i + 6]) && (state[i] > 0)) {
 			isWon = 1;
 			document.getElementById("game_stats").textContent = players[state[i]] + " has won!";
 		}
-	for (let i = 0; i < 7; i += 3)
+	}
+	for (let i = 0; i < 7; i += 3) {
 		if ((state[i] == state[i + 1]) && (state[i] == state[i + 2]) && (state[i] > 0)) {
 			isWon = 1;
 			document.getElementById("game_stats").textContent = players[state[i]] + " has won!";
 		}
+	}
 	if ((state[0] == state[4]) && (state[0] == state[8]) && (state[0] > 0)) {
 		isWon = 1;
 		document.getElementById("game_stats").textContent = players[state[0]] + " has won!";
